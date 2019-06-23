@@ -1,0 +1,88 @@
+<app-navbar [topnavbar]="true"></app-navbar>
+<div class="container-fluid">
+  <div class="row" style="display: -webkit-box;">
+    <div class="">
+      <app-navbar [sidenavbar]="true"></app-navbar>
+    </div>
+    <div class="col-md-4">
+        <div style="padding: 20px 0">
+          <i class="fa fa-user-plus pointer" aria-hidden="true" (click)="addCustomerModel.show()"></i>
+        </div>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Customers</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let customer of customerList; let i = index" class="pointer">
+              <td (click)="isButtonPannelShow = true; currentCustomerDeatils = customer">{{customer.cust_name}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    <div *ngIf="isButtonPannelShow" class="col-md-1">
+      <div class="pt62">
+        <button type="button" class="btn btn-primary" (click)="isCustomerDetailsShow = false; isOrderDetailsShow = true;">Orders</button>
+      </div>
+      <div class="pt25">
+          <button type="button" class="btn btn-primary" (click)="isCustomerDetailsShow = true; isOrderDetailsShow = false;">Details</button>
+      </div>
+      <div class="pt25">
+        <button type="button" class="btn btn-danger" (click)="deleteCustomer(currentCustomerDeatils.cust_id)">Delete</button>   
+      </div>          
+  </div>
+  <div *ngIf="isCustomerDetailsShow" class="col-md-4 pt62">
+      <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Customer Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{currentCustomerDeatils.cust_id}}</td>
+            </tr>
+            <tr>
+              <td>{{currentCustomerDeatils.cust_name}}</td>
+            </tr>
+            <tr>
+              <td>{{currentCustomerDeatils.cust_contact}}</td>
+            </tr>
+            <tr>
+              <td>{{currentCustomerDeatils.cust_address}}</td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+  <div *ngIf="isOrderDetailsShow" class="col-md-5 pt62">
+      <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan="2">Order Details of {{currentCustomerDeatils.cust_name}}</th>
+            </tr>
+          </thead>
+          <thead>
+              <tr>
+                <th>Order Id</th>
+                <th>Order Name</th>
+              </tr>
+            </thead>
+          <tbody>
+            <tr *ngFor="let order of currentCustomerDeatils.orderDetails">
+              <td>{{order.order_id}}</td>
+              <td>{{order.order_name}}</td>
+            </tr>
+            <tr *ngIf="!currentCustomerDeatils.orderDetails">
+                <td colspan="2">Seems like, This is a new customer, Dosen't ordered anything yet.</td>
+              </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+
+<div bsModal #addCustomerModel="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-sizes-name1">
+  <app-add-customer [addCustomerModel]="addCustomerModel" (addCustomerEvent)="addNewCustomer($event)"></app-add-customer>
+</div>

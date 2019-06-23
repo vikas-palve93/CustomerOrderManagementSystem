@@ -1,0 +1,47 @@
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="addCustomerModel" class="modal-title pull-left">Add Customer</h4>
+        <button type="button" class="close pull-right" (click)="addCustomerModel.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="jumbotron">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-6 offset-md-3">
+                          <h3>Customer Details</h3>
+                          <form id="addCustomerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                              <div class="form-group">
+                                  <label>Name</label>
+                                  <input type="text" formControlName="cust_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cust_name.errors }" />
+                                  <div *ngIf="submitted && f.cust_name.errors" class="invalid-feedback">
+                                      <div *ngIf="f.cust_name.errors.required">Name is required</div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label>Contact</label>
+                                  <input type="text" formControlName="cust_contact" (keypress)="keyPress($event)" minlength=10 maxlength=10 class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cust_contact.errors }" />
+                                  <div *ngIf="submitted && f.cust_contact.errors" class="invalid-feedback">
+                                      <div *ngIf="f.cust_contact.errors.required">Contact is required</div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label>Address</label>
+                                  <textarea  type="text" formControlName="cust_address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cust_address.errors }"></textarea>
+                                  <div *ngIf="submitted && f.cust_address.errors" class="invalid-feedback">
+                                      <div *ngIf="f.cust_address.errors.required">Address is required</div>
+                                  </div>
+                              </div>
+                              <div class="form-group text-right">
+                                  <button class="btn btn-primary">Save</button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
