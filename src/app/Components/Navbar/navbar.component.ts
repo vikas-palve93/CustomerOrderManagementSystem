@@ -7,8 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  @Input() topnavbar:any;
-  @Input() sidenavbar:any;
+  @Input() topnavbar: any;
+  @Input() sidenavbar: any;
 
   constructor() { }
 

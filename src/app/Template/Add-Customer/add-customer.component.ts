@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as $ from "jquery";
 
@@ -9,7 +9,7 @@ import * as $ from "jquery";
 })
 export class AddCustomerComponent implements OnInit {
 
-  @Input() addCustomerModel:any;
+  @Input() addCustomerModel: any;
   @Output() addCustomerEvent = new EventEmitter<string>();
   registerForm: FormGroup;
   submitted = false;
@@ -21,25 +21,25 @@ export class AddCustomerComponent implements OnInit {
       cust_name: ['', Validators.required],
       cust_contact: ['', Validators.required],
       cust_address: ['', Validators.required],
-  });
+    });
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }
 
   onSubmit() {
-      this.submitted = true;
+    this.submitted = true;
 
-      // stop here if form is invalid
-      if (this.registerForm.invalid) {
-          return;
-      }
-      else{
-        this.addCustomerEvent.emit(this.registerForm.value)
-        this.addCustomerModel.hide();
-        $("#addCustomerForm").trigger('reset');
-        this.registerForm.untouched;
-      }
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
+    else {
+      this.addCustomerEvent.emit(this.registerForm.value)
+      this.addCustomerModel.hide();
+      $("#addCustomerForm").trigger('reset');
+      this.registerForm.untouched;
+    }
 
   }
 

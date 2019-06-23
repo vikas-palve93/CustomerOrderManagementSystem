@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef  } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { customers } from '../../Util/constants';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -9,7 +9,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class CustomerComponent implements OnInit {
 
-  customerList:any = customers;
+  customerList: any = customers;
   isOrderDetailsShow = false;
   isCustomerDetailsShow = false;
   isButtonPannelShow = false;
@@ -23,42 +23,34 @@ export class CustomerComponent implements OnInit {
   ngOnInit() {
   }
 
-  addNewCustomer(customerData:any){
-    customerData.cust_id = this.customerList.length  + 1;
+  addNewCustomer(customerData: any) {
+    customerData.cust_id = this.customerList.length + 1;
     this.customerList.push(customerData)
   }
 
-  deleteCustomer(i){
+  deleteCustomer(i) {
     console.log(i);
-    for(let j=0;j< this.customerList.length; j++){
-      if(this.customerList[j].cust_id === i){
-        this.customerList.splice(j,1);
+    for (let j = 0; j < this.customerList.length; j++) {
+      if (this.customerList[j].cust_id === i) {
+        this.customerList.splice(j, 1);
         this.isOrderDetailsShow = false;
         this.isCustomerDetailsShow = false;
         this.isButtonPannelShow = false;
+        this.modalRef.hide();
         break;
       }
     }
   }
 
-   
+
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
- 
+
   confirm(): void {
-    for(let j=0;j< this.customerList.length; j++){
-      if(this.customerList[j].cust_id === this.currentCustomerDeatils.cust_id){
-        this.customerList.splice(j,1);
-        this.isOrderDetailsShow = false;
-        this.isCustomerDetailsShow = false;
-        this.isButtonPannelShow = false;
-        break;
-      }
-    }
-    this.modalRef.hide();
+    this.deleteCustomer(this.currentCustomerDeatils.cust_id);
   }
- 
+
   decline(): void {
     this.modalRef.hide();
   }
