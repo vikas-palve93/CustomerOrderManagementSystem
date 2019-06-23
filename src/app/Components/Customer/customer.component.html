@@ -29,7 +29,7 @@
           <button type="button" class="btn btn-primary" (click)="isCustomerDetailsShow = true; isOrderDetailsShow = false;">Details</button>
       </div>
       <div class="pt25">
-        <button type="button" class="btn btn-danger" (click)="deleteCustomer(currentCustomerDeatils.cust_id)">Delete</button>   
+        <button type="button" class="btn btn-danger" (click)="openModal(template)">Delete</button>   
       </div>          
   </div>
   <div *ngIf="isCustomerDetailsShow" class="col-md-4 pt62">
@@ -86,3 +86,11 @@
   aria-labelledby="dialog-sizes-name1">
   <app-add-customer [addCustomerModel]="addCustomerModel" (addCustomerEvent)="addNewCustomer($event)"></app-add-customer>
 </div>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to delet User?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+  </div>
+</ng-template>
