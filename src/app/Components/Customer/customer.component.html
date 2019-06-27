@@ -9,7 +9,7 @@
         <i class="fa fa-user-plus pointer" aria-hidden="true" (click)="addCustomerModel.show()"></i>
       </div>
       <table class="table table-bordered table-hover">
-        <thead>
+        <thead class="thead-light">
           <tr>
             <th>Customers</th>
           </tr>
@@ -21,65 +21,17 @@
         </tbody>
       </table>
     </div>
-    <div *ngIf="isButtonPannelShow" class="col-md-1">
-      <div class="pt62">
-        <button type="button" class="btn btn-primary"
-          (click)="isCustomerDetailsShow = false; isOrderDetailsShow = true;">Orders</button>
-      </div>
-      <div class="pt25">
-        <button type="button" class="btn btn-primary"
-          (click)="isCustomerDetailsShow = true; isOrderDetailsShow = false;">Details</button>
-      </div>
-      <div class="pt25">
-        <button type="button" class="btn btn-danger" (click)="openModal(template)">Delete</button>
-      </div>
+    <div *ngIf="isButtonPannelShow" class="col-md-1 pt62">
+      <app-customer-actions (customerOrderEvent)="showOrderDetails(currentCustomerDeatils)"
+        (customerDetailsEvent)="showCustDetails(currentCustomerDeatils)"
+        (deleteCustomerEvent)="deleteCustomer(currentCustomerDeatils.cust_id)"
+        [currentCustomerDeatils]="currentCustomerDeatils"></app-customer-actions>
     </div>
     <div *ngIf="isCustomerDetailsShow" class="col-md-4 pt62">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Customer Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{currentCustomerDeatils.cust_id}}</td>
-          </tr>
-          <tr>
-            <td>{{currentCustomerDeatils.cust_name}}</td>
-          </tr>
-          <tr>
-            <td>{{currentCustomerDeatils.cust_contact}}</td>
-          </tr>
-          <tr>
-            <td>{{currentCustomerDeatils.cust_address}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <app-customer-details [currentCustomerDeatils]="currentCustomerDeatils"></app-customer-details>
     </div>
     <div *ngIf="isOrderDetailsShow" class="col-md-5 pt62">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th colspan="2">Order Details of {{currentCustomerDeatils.cust_name}}</th>
-          </tr>
-        </thead>
-        <thead>
-          <tr>
-            <th>Order Id</th>
-            <th>Order Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let order of currentCustomerDeatils.orderDetails">
-            <td>{{order.order_id}}</td>
-            <td>{{order.order_name}}</td>
-          </tr>
-          <tr *ngIf="!currentCustomerDeatils.orderDetails">
-            <td colspan="2">Seems like, This is a new customer, Dosen't ordered anything yet.</td>
-          </tr>
-        </tbody>
-      </table>
+      <app-customer-order-details [currentCustomerDeatils]="currentCustomerDeatils"></app-customer-order-details>
     </div>
   </div>
 </div>
@@ -89,11 +41,3 @@
   <app-add-customer [addCustomerModel]="addCustomerModel" (addCustomerEvent)="addNewCustomer($event)">
   </app-add-customer>
 </div>
-
-<ng-template #template>
-  <div class="modal-body text-center">
-    <p>Do you want to delete <br>{{currentCustomerDeatils.cust_name}}?</p>
-    <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
-    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
-  </div>
-</ng-template>

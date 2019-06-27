@@ -5,24 +5,22 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { AngularWebStorageModule } from 'angular-web-storage';
 
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './Components/navbar/navbar.component';
-import { DashboardComponent } from './Components/dashboard/dashboard.component';
-import { CustomerComponent } from './Components/customer/customer.component';
-import { AddCustomerComponent } from './Template/add-customer/add-customer.component';
+import { NavbarComponent } from './Components/Navbar/navbar.component';
+import { DashboardComponent } from './Components/Dashboard/dashboard.component';
+import { CustomerComponent } from './Components/Customer/customer.component';
+import { AddCustomerComponent } from './Template/Add-Customer/add-customer.component';
+import { CustomerActionsComponent } from './Components/Customer-Actions/customer-actions.component';
+import { CustomerDetailsComponent } from './Components/Customer-Details/customer-details.component';
+import { CustomerOrderDetailsComponent } from './Components/Customer-Order-Details/customer-order-details.component';
 
 const appRoutes: Routes = [
-  { path: '',
-    redirectTo: 'customer',
-    pathMatch: 'full'
-  },
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-  },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'dashboard',    component: DashboardComponent },
   { path: 'customer', component: CustomerComponent },
-  { path: '**', component: CustomerComponent }
+  { path: '**', component: DashboardComponent }
 ];
 
 @NgModule({
@@ -31,19 +29,24 @@ const appRoutes: Routes = [
     NavbarComponent,
     DashboardComponent,
     CustomerComponent,
-    AddCustomerComponent
+    AddCustomerComponent,
+    CustomerActionsComponent,
+    CustomerDetailsComponent,
+    CustomerOrderDetailsComponent
   ],
   imports: [
     BrowserModule,
     AngularFontAwesomeModule,
     FormsModule, 
+    AngularWebStorageModule,
     ReactiveFormsModule,
     CollapseModule.forRoot(),
     ModalModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,    )
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

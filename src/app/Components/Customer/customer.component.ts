@@ -1,6 +1,5 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { customers } from '../../Util/constants';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-customer',
@@ -15,12 +14,22 @@ export class CustomerComponent implements OnInit {
   isButtonPannelShow = false;
   currentCustomerDeatils: any;
 
-  modalRef: BsModalRef;
-  message: string;
-
-  constructor(private modalService: BsModalService) { }
+  constructor(
+  ) { }
 
   ngOnInit() {
+
+  }
+  showCustDetails(currentCustomerDeatils) {
+    this.currentCustomerDeatils = currentCustomerDeatils;
+    this.isCustomerDetailsShow = true;
+    this.isOrderDetailsShow = false;
+  }
+
+  showOrderDetails(currentCustomerDeatils) {
+    this.currentCustomerDeatils = currentCustomerDeatils;
+    this.isCustomerDetailsShow = false;
+    this.isOrderDetailsShow = true;
   }
 
   addNewCustomer(customerData: any) {
@@ -36,23 +45,9 @@ export class CustomerComponent implements OnInit {
         this.isOrderDetailsShow = false;
         this.isCustomerDetailsShow = false;
         this.isButtonPannelShow = false;
-        this.modalRef.hide();
         break;
       }
     }
-  }
-
-
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
-  }
-
-  confirm(): void {
-    this.deleteCustomer(this.currentCustomerDeatils.cust_id);
-  }
-
-  decline(): void {
-    this.modalRef.hide();
   }
 
 }
